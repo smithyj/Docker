@@ -18,6 +18,6 @@ RUN echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc \
   && . ~/.bashrc \
   && composer config -g repo.packagist composer https://packagist.phpcomposer.com
 RUN apt-get update && apt-get install -y git
-RUN composer global config github-oauth.github.com dba3e2bcb92ae2caafdf87cec2f669b22b879710
+RUN composer global config github-oauth.github.com 1615e46afca2abd2c7f887046e0ee2b2d111a933
 RUN composer global require fxp/composer-asset-plugin
 RUN pecl install swoole

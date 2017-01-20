@@ -15,8 +15,8 @@ services:
         ports:
             - 3306:3306
         volumes:
-            - ~/Docker/mysql/conf.d:/etc/mysql/conf.d
-            - ~/Docker/mysql/data:/var/lib/mysql
+            - ~/Docker/containers/mysql/conf.d:/etc/mysql/conf.d
+            - ~/Docker/containers/mysql/data:/var/lib/mysql
         volumes_from:
             - disk_data
         privileged: true
@@ -30,7 +30,7 @@ services:
             - disk_data
             - mysql
         volumes:
-            - ~/Docker/php/5.6.27/conf.d:/usr/local/etc/php/conf.d
+            - ~/Docker/containers/php/5.6.27/conf.d:/usr/local/etc/php/conf.d
         volumes_from:
             - disk_data
         privileged: true
@@ -42,7 +42,7 @@ services:
             - disk_data
             - mysql
         volumes:
-            - ~/Docker/php/7.1.0/conf.d:/usr/local/etc/php/conf.d
+            - ~/Docker/containers/php/7.1.0/conf.d:/usr/local/etc/php/conf.d
         volumes_from:
             - disk_data
         privileged: true
@@ -58,7 +58,7 @@ services:
             - phpfpm_5.6.27
             - phpfpm_7.1.0
         volumes:
-            - ~/Docker/nginx/conf.d:/etc/nginx/conf.d
+            - ~/Docker/containers/nginx/conf.d:/etc/nginx/conf.d
         volumes_from:
             - disk_data
         privileged: true
@@ -71,7 +71,7 @@ services:
     #     depends_on:
     #         - disk_data
     #     volumes:
-    #         - ~/Docker/elasticsearch/data:/usr/share/elasticsearch/data
+    #         - ~/Docker/containers/elasticsearch/data:/usr/share/elasticsearch/data
     #     volumes_from: 
     #         - disk_data
     #     ports:
@@ -89,7 +89,7 @@ services:
     #         - disk_data
     #         - mysql
     #     volumes:
-    #         - ~/Docker/php/conf.d:/usr/local/etc/php/conf.d
+    #         - ~/Docker/containers/php/conf.d:/usr/local/etc/php/conf.d
     #     volumes_from:
     #         - disk_data
     #     privileged: true
@@ -101,7 +101,7 @@ services:
     #         - disk_data
     #         - mysql
     #     volumes:
-    #         - ~/Docker/php/conf.d:/usr/local/etc/php/conf.d
+    #         - ~/Docker/containers/php/conf.d:/usr/local/etc/php/conf.d
     #     volumes_from:
     #         - disk_data
     #     privileged: true
@@ -113,7 +113,7 @@ services:
     #         - disk_data
     #         - mysql
     #     volumes:
-    #         - ~/Docker/php/conf.d:/usr/local/etc/php/conf.d
+    #         - ~/Docker/containers/php/conf.d:/usr/local/etc/php/conf.d
     #     volumes_from:
     #         - disk_data
     #     privileged: true
