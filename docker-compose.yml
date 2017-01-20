@@ -1,0 +1,119 @@
+version: '2'
+services:
+
+    disk_data:
+        image: docker.io/centos
+        volumes:
+            - ~/Docker:/disk_data
+        privileged: true
+        container_name: disk_data
+        
+    mysql:
+        image: 624508914/mysql:5.6.34
+        depends_on:
+            - disk_data
+        ports:
+            - 3306:3306
+        volumes:
+            - ~/Docker/mysql/conf.d:/etc/mysql/conf.d
+            - ~/Docker/mysql/data:/var/lib/mysql
+        volumes_from:
+            - disk_data
+        privileged: true
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+        container_name: mysql
+        
+    phpfpm_5.6.27:
+        image: 624508914/php:5.6.27-fpm
+        depends_on:
+            - disk_data
+            - mysql
+        volumes:
+            - ~/Docker/php/5.6.27/conf.d:/usr/local/etc/php/conf.d
+        volumes_from:
+            - disk_data
+        privileged: true
+        container_name: phpfpm_5.6.27
+
+    phpfpm_7.1.0:
+        image: 624508914/php:7.1.0-fpm
+        depends_on:
+            - disk_data
+            - mysql
+        volumes:
+            - ~/Docker/php/7.1.0/conf.d:/usr/local/etc/php/conf.d
+        volumes_from:
+            - disk_data
+        privileged: true
+        container_name: phpfpm_7.1.0
+        
+    nginx:
+        image: 624508914/nginx:1.10.2
+        ports:
+            - 80:80
+            - 443:443
+        depends_on:
+            - disk_data
+            - phpfpm_5.6.27
+            - phpfpm_7.1.0
+        volumes:
+            - ~/Docker/nginx/conf.d:/etc/nginx/conf.d
+        volumes_from:
+            - disk_data
+        privileged: true
+        container_name: nginx
+    
+    # elasticsearch:
+    #     image: docker.io/elasticsearch:5.0.1
+    #     # 集群设置 Ecluster.name：集群名称 Enode.name：集群节点服务器名称 
+    #     command: elasticsearch -Ecluster.name=hucxiaoyao -Enode.name=hucxiaoyao_node
+    #     depends_on:
+    #         - disk_data
+    #     volumes:
+    #         - ~/Docker/elasticsearch/data:/usr/share/elasticsearch/data
+    #     volumes_from: 
+    #         - disk_data
+    #     ports:
+    #         - 9200:9200
+    #         - 9300:9300
+    #     environment:
+    #         ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+    #     privileged: true
+    #     container_name: elasticsearch
+
+    # phpfpm_server_01:
+    #     image: 624508914/php:5.6.27-fpm
+    #     depends_on:
+    #         - disk_data
+    #         - mysql
+    #     volumes:
+    #         - ~/Docker/php/conf.d:/usr/local/etc/php/conf.d
+    #     volumes_from:
+    #         - disk_data
+    #     privileged: true
+    #     container_name: phpfpm_server_01
+
+    # phpfpm_server_02:
+    #     image: 624508914/php:5.6.27-fpm
+    #     depends_on:
+    #         - disk_data
+    #         - mysql
+    #     volumes:
+    #         - ~/Docker/php/conf.d:/usr/local/etc/php/conf.d
+    #     volumes_from:
+    #         - disk_data
+    #     privileged: true
+    #     container_name: phpfpm_server_02
+
+    # phpfpm_server_03:
+    #     image: 624508914/php:5.6.27-fpm
+    #     depends_on:
+    #         - disk_data
+    #         - mysql
+    #     volumes:
+    #         - ~/Docker/php/conf.d:/usr/local/etc/php/conf.d
+    #     volumes_from:
+    #         - disk_data
+    #     privileged: true
+    #     container_name: phpfpm_server_03
