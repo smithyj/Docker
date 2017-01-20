@@ -2,14 +2,14 @@ version: '2'
 services:
 
     disk_data:
-        image: docker.io/centos
+        image: registry.cn-hangzhou.aliyuncs.com/624508914/alpine:3.5
         volumes:
             - ~/Docker:/disk_data
         privileged: true
         container_name: disk_data
         
     mysql:
-        image: 624508914/mysql:5.6.34
+        image: registry.cn-hangzhou.aliyuncs.com/624508914/mysql:5.6.34
         depends_on:
             - disk_data
         ports:
@@ -25,7 +25,7 @@ services:
         container_name: mysql
         
     phpfpm_5.6.27:
-        image: 624508914/php:5.6.27-fpm
+        image: registry.cn-hangzhou.aliyuncs.com/624508914/php:5.6.27-fpm
         depends_on:
             - disk_data
             - mysql
@@ -37,7 +37,7 @@ services:
         container_name: phpfpm_5.6.27
 
     phpfpm_7.1.0:
-        image: 624508914/php:7.1.0-fpm
+        image: registry.cn-hangzhou.aliyuncs.com/624508914/php:7.1.0-fpm
         depends_on:
             - disk_data
             - mysql
@@ -49,7 +49,7 @@ services:
         container_name: phpfpm_7.1.0
         
     nginx:
-        image: 624508914/nginx:1.10.2
+        image: registry.cn-hangzhou.aliyuncs.com/624508914/nginx:1.10.2
         ports:
             - 80:80
             - 443:443
@@ -84,7 +84,7 @@ services:
 
     ## Nginx负载均衡集群PHP后端服务
     # phpfpm_server_01:
-    #     image: 624508914/php:5.6.27-fpm
+    #     image: registry.cn-hangzhou.aliyuncs.com/624508914/php:5.6.27-fpm
     #     depends_on:
     #         - disk_data
     #         - mysql
@@ -96,7 +96,7 @@ services:
     #     container_name: phpfpm_server_01
 
     # phpfpm_server_02:
-    #     image: 624508914/php:5.6.27-fpm
+    #     image: registry.cn-hangzhou.aliyuncs.com/624508914/php:5.6.27-fpm
     #     depends_on:
     #         - disk_data
     #         - mysql
@@ -108,7 +108,7 @@ services:
     #     container_name: phpfpm_server_02
 
     # phpfpm_server_03:
-    #     image: 624508914/php:5.6.27-fpm
+    #     image: registry.cn-hangzhou.aliyuncs.com/624508914/php:5.6.27-fpm
     #     depends_on:
     #         - disk_data
     #         - mysql
