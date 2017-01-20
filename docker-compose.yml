@@ -82,6 +82,7 @@ services:
     #     privileged: true
     #     container_name: elasticsearch
 
+    ## Nginx负载均衡集群PHP后端服务
     # phpfpm_server_01:
     #     image: 624508914/php:5.6.27-fpm
     #     depends_on:
