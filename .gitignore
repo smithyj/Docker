@@ -2,3 +2,4 @@ elasticsearch/data/*
 mysql/data/*
 www/*
 xdebug/log/*
+!README.md
