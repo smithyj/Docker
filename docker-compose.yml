@@ -2,7 +2,7 @@ version: '2'
 services:
 
     disk_data:
-        image: registry.cn-hangzhou.aliyuncs.com/624508914/alpine:3.5
+        image: registry.cn-hangzhou.aliyuncs.com/624508914/centos:7.3.1611
         volumes:
             - ~/Docker:/disk_data
         privileged: true
