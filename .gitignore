@@ -1,5 +1,5 @@
 /containers/elasticsearch/data/*
-/containers/mysql/data/*
+/containers/mysql/server_*/data/*
 /containers/php/xdebug/log/*
 /www/*
 !README.md

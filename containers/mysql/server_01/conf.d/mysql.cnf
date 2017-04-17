@@ -118,12 +118,13 @@ sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
 
 # Binary Logging.
 # log-bin
+log-bin=mysql-log-bin
 
 # Error Logging.
 #log-error="DESKTOP-KC2HPGO.err"
 
 # Server Id.
-server-id=1
+server-id=1001
 
 # Secure File Priv.
 #secure-file-priv="C:/ProgramData/MySQL/MySQL Server 5.6/Uploads"
