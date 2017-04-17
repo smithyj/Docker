@@ -24,21 +24,21 @@ services:
             MYSQL_ROOT_PASSWORD: 123456
         container_name: mysql_server_01
 
-    mysql_server_02:
-        image: registry.cn-hangzhou.aliyuncs.com/624508914/mysql:5.6.34
-        depends_on:
-            - disk_data
-        ports:
-            - 3307:3306
-        volumes:
-            - ~/Docker/containers/mysql/server_02/conf.d:/etc/mysql/conf.d
-            - ~/Docker/containers/mysql/server_02/data:/var/lib/mysql
-        volumes_from:
-            - disk_data
-        privileged: true
-        environment:
-            MYSQL_ROOT_PASSWORD: 123456
-        container_name: mysql_server_02
+    # mysql_server_02:
+    #     image: registry.cn-hangzhou.aliyuncs.com/624508914/mysql:5.6.34
+    #     depends_on:
+    #         - disk_data
+    #     ports:
+    #         - 3307:3306
+    #     volumes:
+    #         - ~/Docker/containers/mysql/server_02/conf.d:/etc/mysql/conf.d
+    #         - ~/Docker/containers/mysql/server_02/data:/var/lib/mysql
+    #     volumes_from:
+    #         - disk_data
+    #     privileged: true
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: 123456
+    #     container_name: mysql_server_02
         
     phpfpm_5.6.27:
         image: registry.cn-hangzhou.aliyuncs.com/624508914/php:5.6.27-fpm

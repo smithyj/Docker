@@ -118,7 +118,6 @@ sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
 
 # Binary Logging.
 # log-bin
-log-bin=mysql-log-bin
 
 # Error Logging.
 #log-error="DESKTOP-KC2HPGO.err"
