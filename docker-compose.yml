@@ -78,6 +78,13 @@ services:
         privileged: true
         container_name: nginx
     
+    redis:
+        image: redis:3.2.8
+        depends_on:
+            - disk_data
+        privileged: true
+        container_name: redis
+    
     # elasticsearch:
     #     image: docker.io/elasticsearch:5.0.1
     #     # 集群设置 Ecluster.name：集群名称 Enode.name：集群节点服务器名称 
