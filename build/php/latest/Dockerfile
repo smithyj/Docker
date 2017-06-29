@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libpng12-dev \
     && docker-php-ext-install -j$(nproc) iconv mcrypt bcmath calendar ctype exif gettext pdo_mysql shmop sockets zip mysqli\
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --enable-pcntl \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/\
     && docker-php-ext-install -j$(nproc) gd pcntl
 
 RUN pecl install redis-3.1.0 \
