@@ -8,82 +8,59 @@ services:
         privileged: true
         container_name: disk_data
         
-    mysql_server_01:
+    mysql_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.6.34
         depends_on:
             - disk_data
         ports:
             - 3306:3306
         volumes:
-            - ~/Docker/containers/mysql/server_01/conf.d:/etc/mysql/conf.d
-            - ~/Docker/containers/mysql/server_01/data:/var/lib/mysql
+            - ~/Docker/containers/mysql/s1/conf.d:/etc/mysql/conf.d
+            - ~/Docker/containers/mysql/s1/data:/var/lib/mysql
         volumes_from:
             - disk_data
         privileged: true
         environment:
             MYSQL_ROOT_PASSWORD: 123456
-        container_name: mysql_server_01
+        container_name: mysql_s1
 
-    # mysql_server_02:
+    # mysql_s2:
     #     image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.6.34
     #     depends_on:
     #         - disk_data
     #     ports:
     #         - 3307:3306
     #     volumes:
-    #         - ~/Docker/containers/mysql/server_02/conf.d:/etc/mysql/conf.d
-    #         - ~/Docker/containers/mysql/server_02/data:/var/lib/mysql
+    #         - ~/Docker/containers/mysql/s2/conf.d:/etc/mysql/conf.d
+    #         - ~/Docker/containers/mysql/s2/data:/var/lib/mysql
     #     volumes_from:
     #         - disk_data
     #     privileged: true
     #     environment:
     #         MYSQL_ROOT_PASSWORD: 123456
-    #     container_name: mysql_server_02
+    #     container_name: mysql_s2
         
-    phpfpm_5.6.27:
+    phpfpm56_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:5.6.27-fpm
         depends_on:
             - disk_data
         volumes:
-            - ~/Docker/containers/php/5.6.27/conf.d:/usr/local/etc/php/conf.d
+            - ~/Docker/containers/php/5.6.27/s1/conf.d:/usr/local/etc/php/conf.d
         volumes_from:
             - disk_data
         privileged: true
-        container_name: phpfpm_5.6.27
+        container_name: phpfpm56_s1
 
-    phpfpm_7.1.0:
+    phpfpm71_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:7.1.0-fpm
         depends_on:
             - disk_data
         volumes:
-            - ~/Docker/containers/php/7.1.0/conf.d:/usr/local/etc/php/conf.d
+            - ~/Docker/containers/php/7.1.0/s1/conf.d:/usr/local/etc/php/conf.d
         volumes_from:
             - disk_data
         privileged: true
-        container_name: phpfpm_7.1.0
-        
-    nginx:
-        image: registry.cn-shenzhen.aliyuncs.com/624508914/nginx:1.10.2
-        ports:
-            - 80:80
-            - 443:443
-        depends_on:
-            - disk_data
-            - phpfpm_5.6.27
-            - phpfpm_7.1.0
-        volumes:
-            - ~/Docker/containers/nginx/conf.d:/etc/nginx/conf.d
-        volumes_from:
-            - disk_data
-        privileged: true
-        container_name: nginx
-    
-    redis:
-        image: redis:3.2.8
-        depends_on:
-            - disk_data
-        privileged: true
-        container_name: redis
+        container_name: phpfpm71_s1
     
     # elasticsearch:
     #     image: docker.io/elasticsearch:5.0.1
@@ -103,39 +80,27 @@ services:
     #     privileged: true
     #     container_name: elasticsearch
 
-    ## Nginx负载均衡集群PHP后端服务
-    # phpfpm_server_01:
-    #     image: registry.cn-shenzhen.aliyuncs.com/624508914/php:5.6.27-fpm
-    #     depends_on:
-    #         - disk_data
-    #         - mysql
-    #     volumes:
-    #         - ~/Docker/containers/php/conf.d:/usr/local/etc/php/conf.d
-    #     volumes_from:
-    #         - disk_data
-    #     privileged: true
-    #     container_name: phpfpm_server_01
-
-    # phpfpm_server_02:
-    #     image: registry.cn-shenzhen.aliyuncs.com/624508914/php:5.6.27-fpm
-    #     depends_on:
-    #         - disk_data
-    #         - mysql
-    #     volumes:
-    #         - ~/Docker/containers/php/conf.d:/usr/local/etc/php/conf.d
-    #     volumes_from:
-    #         - disk_data
-    #     privileged: true
-    #     container_name: phpfpm_server_02
-
-    # phpfpm_server_03:
-    #     image: registry.cn-shenzhen.aliyuncs.com/624508914/php:5.6.27-fpm
-    #     depends_on:
-    #         - disk_data
-    #         - mysql
-    #     volumes:
-    #         - ~/Docker/containers/php/conf.d:/usr/local/etc/php/conf.d
-    #     volumes_from:
-    #         - disk_data
-    #     privileged: true
-    #     container_name: phpfpm_server_03
+    nginx:
+        image: registry.cn-shenzhen.aliyuncs.com/624508914/nginx:1.10.2
+        ports:
+            - 80:80
+            - 443:443
+        depends_on:
+            - disk_data
+            - phpfpm56_s1
+            - phpfpm71_s1
+        volumes:
+            - ~/Docker/containers/nginx/conf.d:/etc/nginx/conf.d
+        volumes_from:
+            - disk_data
+        privileged: true
+        container_name: nginx
+    
+    redis_s1:
+        image: redis:4.0.0
+        depends_on:
+            - disk_data
+        volumes:
+            - ~/Docker/containers/redis/s1/data:/data
+        privileged: true
+        container_name: redis_s1
