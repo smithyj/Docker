@@ -1,24 +1,14 @@
 version: '2'
 services:
-
-    disk_data:
-        image: registry.cn-shenzhen.aliyuncs.com/624508914/centos:7.3.1611
-        volumes:
-            - ~/Docker:/disk_data
-        privileged: true
-        container_name: disk_data
         
     mysql_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.6.34
-        depends_on:
-            - disk_data
         ports:
             - 3306:3306
         volumes:
+            - ~/Docker:/disk_data
             - ~/Docker/containers/mysql/s1/conf.d:/etc/mysql/conf.d
             - ~/Docker/containers/mysql/s1/data:/var/lib/mysql
-        volumes_from:
-            - disk_data
         privileged: true
         environment:
             MYSQL_ROOT_PASSWORD: 123456
@@ -26,15 +16,12 @@ services:
 
     # mysql_s2:
     #     image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.6.34
-    #     depends_on:
-    #         - disk_data
     #     ports:
     #         - 3307:3306
     #     volumes:
+    #         - ~/Docker:/disk_data
     #         - ~/Docker/containers/mysql/s2/conf.d:/etc/mysql/conf.d
     #         - ~/Docker/containers/mysql/s2/data:/var/lib/mysql
-    #     volumes_from:
-    #         - disk_data
     #     privileged: true
     #     environment:
     #         MYSQL_ROOT_PASSWORD: 123456
@@ -42,23 +29,17 @@ services:
         
     phpfpm56_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:5.6.27-fpm
-        depends_on:
-            - disk_data
         volumes:
+            - ~/Docker:/disk_data
             - ~/Docker/containers/php/5.6.27/s1/conf.d:/usr/local/etc/php/conf.d
-        volumes_from:
-            - disk_data
         privileged: true
         container_name: phpfpm56_s1
 
     phpfpm71_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:7.1.0-fpm
-        depends_on:
-            - disk_data
         volumes:
+            - ~/Docker:/disk_data
             - ~/Docker/containers/php/7.1.0/s1/conf.d:/usr/local/etc/php/conf.d
-        volumes_from:
-            - disk_data
         privileged: true
         container_name: phpfpm71_s1
     
@@ -66,12 +47,8 @@ services:
     #     image: docker.io/elasticsearch:5.0.1
     #     # 集群设置 Ecluster.name：集群名称 Enode.name：集群节点服务器名称 
     #     command: elasticsearch -Ecluster.name=hucxiaoyao -Enode.name=hucxiaoyao_node
-    #     depends_on:
-    #         - disk_data
     #     volumes:
     #         - ~/Docker/containers/elasticsearch/data:/usr/share/elasticsearch/data
-    #     volumes_from: 
-    #         - disk_data
     #     ports:
     #         - 9200:9200
     #         - 9300:9300
@@ -86,21 +63,18 @@ services:
             - 80:80
             - 443:443
         depends_on:
-            - disk_data
             - phpfpm56_s1
             - phpfpm71_s1
         volumes:
+            - ~/Docker:/disk_data
             - ~/Docker/containers/nginx/conf.d:/etc/nginx/conf.d
-        volumes_from:
-            - disk_data
         privileged: true
         container_name: nginx
     
     redis_s1:
         image: redis:4.0.0
-        depends_on:
-            - disk_data
         volumes:
+            - ~/Docker:/disk_data
             - ~/Docker/containers/redis/s1/data:/data
         privileged: true
         container_name: redis_s1
