@@ -43,19 +43,20 @@ services:
         privileged: true
         container_name: phpfpm71_s1
     
-    # elasticsearch:
-    #     image: docker.io/elasticsearch:5.0.1
-    #     # 集群设置 Ecluster.name：集群名称 Enode.name：集群节点服务器名称 
-    #     command: elasticsearch -Ecluster.name=hucxiaoyao -Enode.name=hucxiaoyao_node
-    #     volumes:
-    #         - ~/Docker/containers/elasticsearch/data:/usr/share/elasticsearch/data
-    #     ports:
-    #         - 9200:9200
-    #         - 9300:9300
-    #     environment:
-    #         ES_JAVA_OPTS: "-Xms1g -Xmx1g"
-    #     privileged: true
-    #     container_name: elasticsearch
+    elasticsearch:
+        image: docker.io/elasticsearch:5.5
+        # 集群设置 Ecluster.name：集群名称 Enode.name：集群节点服务器名称 
+        command: elasticsearch -Ecluster.name=yyj -Enode.name=yyj_node
+        volumes:
+            - ~/Docker:/disk_data
+            - ~/Docker/containers/elasticsearch/data:/usr/share/elasticsearch/data
+        ports:
+            - 9200:9200
+            - 9300:9300
+        environment:
+            ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+        privileged: true
+        container_name: elasticsearch
 
     nginx:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/nginx:1.10.2
