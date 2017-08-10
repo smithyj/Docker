@@ -1,4 +1,4 @@
-version: '2'
+version: '3.2'
 services:
         
     mysql_s1:
@@ -44,7 +44,7 @@ services:
         container_name: phpfpm71_s1
     
     elasticsearch:
-        image: docker.io/elasticsearch:5.5
+        image: registry.cn-shenzhen.aliyuncs.com/624508914/elasticsearch:5.5.1
         # 集群设置 Ecluster.name：集群名称 Enode.name：集群节点服务器名称 
         command: elasticsearch -Ecluster.name=yyj -Enode.name=yyj_node
         volumes:
@@ -57,6 +57,17 @@ services:
             ES_JAVA_OPTS: "-Xms1g -Xmx1g"
         privileged: true
         container_name: elasticsearch
+
+    kibana:
+        image: registry.cn-shenzhen.aliyuncs.com/624508914/kibana:5.5.1
+        ports:
+            - 5601:5601
+        volumes:
+            - ~/Docker/containers/kibana:/usr/share/kibana/config
+        environment:
+            ELASTICSEARCH_URL: http://elasticsearch:9200
+        privileged: true
+        container_name: kibana
 
     nginx:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/nginx:1.10.2
