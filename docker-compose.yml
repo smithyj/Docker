@@ -50,6 +50,7 @@ services:
         volumes:
             - ~/Docker:/disk_data
             - ~/Docker/containers/elasticsearch/data:/usr/share/elasticsearch/data
+            - ~/Docker/containers/elasticsearch/plugins:/usr/share/elasticsearch/plugins
         ports:
             - 9200:9200
             - 9300:9300
