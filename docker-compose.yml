@@ -51,6 +51,7 @@ services:
             - ~/Docker:/disk_data
             - ~/Docker/containers/elasticsearch/data:/usr/share/elasticsearch/data
             - ~/Docker/containers/elasticsearch/plugins/ik:/usr/share/elasticsearch/plugins/ik
+            - ~/Docker/containers/elasticsearch/plugins/ingest-attachment:/usr/share/elasticsearch/plugins/ingest-attachment
         ports:
             - 9200:9200
             - 9300:9300
