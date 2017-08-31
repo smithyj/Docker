@@ -1,4 +1,12 @@
+cluster.name: "docker-cluster"
+network.host: 0.0.0.0
+
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+# Details: https://github.com/elastic/elasticsearch/pull/17288
+discovery.zen.minimum_master_nodes: 1
+
 # 禁止自动创建索引
-action.auto_create_index: false
+# action.auto_create_index: false
 # 禁止使用通配符来删除索引
 action.destructive_requires_name: true
