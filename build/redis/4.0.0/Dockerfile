@@ -1,0 +1,1 @@
+FROM docker.io/redis:4.0.0

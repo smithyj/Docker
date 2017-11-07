@@ -1,8 +1,9 @@
 version: '3.2'
 services:
         
-    mysql_s1:
+    mysql56_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.6.34
+        restart: always
         ports:
             - 3306:3306
         volumes:
@@ -12,23 +13,25 @@ services:
         privileged: true
         environment:
             MYSQL_ROOT_PASSWORD: 123456
-        container_name: mysql_s1
+        container_name: mysql56_s1
 
-    # mysql_s2:
-    #     image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.6.34
-    #     ports:
-    #         - 3307:3306
-    #     volumes:
-    #         - ~/Docker:/disk_data
-    #         - ~/Docker/containers/mysql/s2/conf.d:/etc/mysql/conf.d
-    #         - ~/Docker/containers/mysql/s2/data:/var/lib/mysql
-    #     privileged: true
-    #     environment:
-    #         MYSQL_ROOT_PASSWORD: 123456
-    #     container_name: mysql_s2
+    mysql57_s1:
+        image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.7.2
+        restart: always
+        ports:
+            - 3307:3306
+        volumes:
+            - ~/Docker:/disk_data
+            - ~/Docker/containers/mysql/s1/conf.d:/etc/mysql/conf.d
+            - ~/Docker/containers/mysql/s1/data:/var/lib/mysql
+        privileged: true
+        environment:s
+            MYSQL_ROOT_PASSWORD: 123456
+        container_name: mysql57_s1
         
     phpfpm56_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:5.6.27-fpm
+        restart: always
         volumes:
             - ~/Docker:/disk_data
             - ~/Docker/containers/php/5.6.27/s1/conf.d:/usr/local/etc/php/conf.d
@@ -37,14 +40,40 @@ services:
 
     phpfpm71_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:7.1.0-fpm
+        restart: always
         volumes:
             - ~/Docker:/disk_data
             - ~/Docker/containers/php/7.1.0/s1/conf.d:/usr/local/etc/php/conf.d
         privileged: true
         container_name: phpfpm71_s1
+
+    nginx_s1:
+        image: registry.cn-shenzhen.aliyuncs.com/624508914/nginx:1.10.2
+        restart: always
+        ports:
+            - 80:80
+            - 443:443
+        depends_on:
+            - phpfpm56_s1
+            - phpfpm71_s1
+        volumes:
+            - ~/Docker:/disk_data
+            - ~/Docker/containers/nginx/1.10.2/s1/conf.d:/etc/nginx/conf.d
+        privileged: true
+        container_name: nginx_s1
     
+    redis_s1:
+        image: registry.cn-shenzhen.aliyuncs.com/624508914/redis:4.0.0
+        restart: always
+        volumes:
+            - ~/Docker:/disk_data
+            - ~/Docker/containers/redis/4.0.0/s1/data:/data
+        privileged: true
+        container_name: redis_s1
+
     elasticsearch:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/elasticsearch:5.5.1
+        restart: always
         # 集群设置 Ecluster.name：集群名称 Enode.name：集群节点服务器名称 
         command: elasticsearch -Ecluster.name=yyj -Enode.name=yyj_node
         volumes:
@@ -63,6 +92,7 @@ services:
 
     kibana:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/kibana:5.5.1
+        restart: always
         ports:
             - 5601:5601
         volumes:
@@ -71,25 +101,3 @@ services:
             - elasticsearch
         privileged: true
         container_name: kibana
-
-    nginx:
-        image: registry.cn-shenzhen.aliyuncs.com/624508914/nginx:1.10.2
-        ports:
-            - 80:80
-            - 443:443
-        depends_on:
-            - phpfpm56_s1
-            - phpfpm71_s1
-        volumes:
-            - ~/Docker:/disk_data
-            - ~/Docker/containers/nginx/conf.d:/etc/nginx/conf.d
-        privileged: true
-        container_name: nginx
-    
-    redis_s1:
-        image: redis:4.0.0
-        volumes:
-            - ~/Docker:/disk_data
-            - ~/Docker/containers/redis/s1/data:/data
-        privileged: true
-        container_name: redis_s1
