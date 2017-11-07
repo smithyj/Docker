@@ -25,7 +25,7 @@ services:
             - ~/Docker/containers/mysql/5.7.20/s1/conf.d:/etc/mysql/conf.d
             - ~/Docker/containers/mysql/5.7.20/s1/data:/var/lib/mysql
         privileged: true
-        environment:s
+        environment:
             MYSQL_ROOT_PASSWORD: 123456
         container_name: mysql57_s1
         
