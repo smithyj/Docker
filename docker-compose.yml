@@ -8,8 +8,8 @@ services:
             - 3306:3306
         volumes:
             - ~/Docker:/disk_data
-            - ~/Docker/containers/mysql/s1/conf.d:/etc/mysql/conf.d
-            - ~/Docker/containers/mysql/s1/data:/var/lib/mysql
+            - ~/Docker/containers/mysql/5.6.34/s1/conf.d:/etc/mysql/conf.d
+            - ~/Docker/containers/mysql/5.6.34/s1/data:/var/lib/mysql
         privileged: true
         environment:
             MYSQL_ROOT_PASSWORD: 123456
@@ -22,8 +22,8 @@ services:
             - 3307:3306
         volumes:
             - ~/Docker:/disk_data
-            - ~/Docker/containers/mysql/s1/conf.d:/etc/mysql/conf.d
-            - ~/Docker/containers/mysql/s1/data:/var/lib/mysql
+            - ~/Docker/containers/mysql/5.7.2/s1/conf.d:/etc/mysql/conf.d
+            - ~/Docker/containers/mysql/5.7.2/s1/data:/var/lib/mysql
         privileged: true
         environment:s
             MYSQL_ROOT_PASSWORD: 123456
