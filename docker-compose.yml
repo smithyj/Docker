@@ -47,7 +47,7 @@ services:
         privileged: true
         container_name: phpfpm71_s1
 
-    nginx_s1:
+    nginx110_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/nginx:1.10.2
         restart: always
         ports:
@@ -60,16 +60,16 @@ services:
             - ~/Docker:/disk_data
             - ~/Docker/containers/nginx/1.10.2/s1/conf.d:/etc/nginx/conf.d
         privileged: true
-        container_name: nginx_s1
+        container_name: nginx110_s1
     
-    redis_s1:
+    redis40_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/redis:4.0.0
         restart: always
         volumes:
             - ~/Docker:/disk_data
             - ~/Docker/containers/redis/4.0.0/s1/data:/data
         privileged: true
-        container_name: redis_s1
+        container_name: redis40_s1
 
     elasticsearch:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/elasticsearch:5.5.1
