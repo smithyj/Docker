@@ -1,6 +1,6 @@
 /containers/elasticsearch/data/*
 /containers/mysql/5.6.34/s1/data/*
-/containers/mysql/5.7.2/s1/data/*
+/containers/mysql/5.7.20/s1/data/*
 /containers/php/xdebug/log/*
 /containers/redis/4.0.0/s1/data/*
 /www/*
