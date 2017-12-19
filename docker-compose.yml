@@ -3,7 +3,7 @@ services:
         
     mysql56_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.6.34
-        restart: always
+        # restart: always
         ports:
             - 3306:3306
         volumes:
@@ -17,7 +17,7 @@ services:
 
     mysql57_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.7.20
-        restart: always
+        # restart: always
         ports:
             - 3307:3306
         volumes:
@@ -31,7 +31,7 @@ services:
         
     phpfpm56_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:5.6.27-fpm
-        restart: always
+        # restart: always
         volumes:
             - ~/Docker:/disk_data
             - ~/Docker/containers/php/5.6.27/s1/conf.d:/usr/local/etc/php/conf.d
@@ -40,7 +40,7 @@ services:
 
     phpfpm71_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:7.1.0-fpm
-        restart: always
+        # restart: always
         volumes:
             - ~/Docker:/disk_data
             - ~/Docker/containers/php/7.1.0/s1/conf.d:/usr/local/etc/php/conf.d
@@ -49,7 +49,7 @@ services:
 
     nginx110_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/nginx:1.10.2
-        restart: always
+        # restart: always
         ports:
             - 80:80
             - 443:443
@@ -64,7 +64,7 @@ services:
     
     redis40_s1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/redis:4.0.0
-        restart: always
+        # restart: always
         volumes:
             - ~/Docker:/disk_data
             - ~/Docker/containers/redis/4.0.0/s1/data:/data
@@ -73,7 +73,7 @@ services:
 
     elasticsearch:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/elasticsearch:5.5.1
-        restart: always
+        # restart: always
         # 集群设置 Ecluster.name：集群名称 Enode.name：集群节点服务器名称 
         command: elasticsearch -Ecluster.name=yyj -Enode.name=yyj_node
         volumes:
@@ -92,7 +92,7 @@ services:
 
     kibana:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/kibana:5.5.1
-        restart: always
+        # restart: always
         ports:
             - 5601:5601
         volumes:
