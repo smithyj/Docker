@@ -1,103 +1,91 @@
 version: '3.2'
 services:
-        
-    mysql56_s1:
+    mysql-5.6.34-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.6.34
-        # restart: always
         ports:
             - 3306:3306
         volumes:
-            - ~/Docker:/disk_data
-            - ~/Docker/containers/mysql/5.6.34/s1/conf.d:/etc/mysql/conf.d
-            - ~/Docker/containers/mysql/5.6.34/s1/data:/var/lib/mysql
+            - ~/Docker:/volumes_data
+            - ~/Docker/container/mysql/5.6.34/v1/conf.d:/etc/mysql/conf.d
+            - ~/Docker/container/mysql/5.6.34/v1/data:/var/lib/mysql
         privileged: true
         environment:
             MYSQL_ROOT_PASSWORD: 123456
-        container_name: mysql56_s1
+        container_name: mysql-5.6.34-v1
 
-    mysql57_s1:
+    mysql-5.7.20-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.7.20
-        # restart: always
         ports:
             - 3307:3306
         volumes:
-            - ~/Docker:/disk_data
-            - ~/Docker/containers/mysql/5.7.20/s1/conf.d:/etc/mysql/conf.d
-            - ~/Docker/containers/mysql/5.7.20/s1/data:/var/lib/mysql
+            - ~/Docker:/volumes_data
+            - ~/Docker/container/mysql/5.7.20/v1/conf.d:/etc/mysql/conf.d
+            - ~/Docker/container/mysql/5.7.20/v1/data:/var/lib/mysql
         privileged: true
         environment:
             MYSQL_ROOT_PASSWORD: 123456
-        container_name: mysql57_s1
+        container_name: mysql-5.7.20-v1
         
-    phpfpm56_s1:
+    php-5.6.27-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:5.6.27-fpm
-        # restart: always
         volumes:
-            - ~/Docker:/disk_data
-            - ~/Docker/containers/php/5.6.27/s1/conf.d:/usr/local/etc/php/conf.d
+            - ~/Docker:/volumes_data
+            - ~/Docker/container/php/5.6.27/v1/conf.d:/usr/local/etc/php/conf.d
         privileged: true
-        container_name: phpfpm56_s1
+        container_name: php-5.6.27-v1
 
-    phpfpm71_s1:
+    php-7.1.0-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:7.1.0-fpm
-        # restart: always
         volumes:
-            - ~/Docker:/disk_data
-            - ~/Docker/containers/php/7.1.0/s1/conf.d:/usr/local/etc/php/conf.d
+            - ~/Docker:/volumes_data
+            - ~/Docker/container/php/7.1.0/v1/conf.d:/usr/local/etc/php/conf.d
         privileged: true
-        container_name: phpfpm71_s1
+        container_name: php-7.1.0-v1
 
-    nginx110_s1:
+    nginx-1.10.2-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/nginx:1.10.2
-        # restart: always
         ports:
             - 80:80
             - 443:443
         depends_on:
-            - phpfpm56_s1
-            - phpfpm71_s1
+            - php-5.6.27-v1
+            - php-7.1.0-v1
         volumes:
-            - ~/Docker:/disk_data
-            - ~/Docker/containers/nginx/1.10.2/s1/conf.d:/etc/nginx/conf.d
+            - ~/Docker:/volumes_data
+            - ~/Docker/container/nginx/1.10.2/v1/conf.d:/etc/nginx/conf.d
         privileged: true
-        container_name: nginx110_s1
+        container_name: nginx-1.10.2-v1
     
-    redis40_s1:
+    redis-4.0.0-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/redis:4.0.0
-        # restart: always
         volumes:
-            - ~/Docker:/disk_data
-            - ~/Docker/containers/redis/4.0.0/s1/data:/data
+            - ~/Docker/container/redis/4.0.0/v1/data:/data
         privileged: true
-        container_name: redis40_s1
+        container_name: redis-4.0.0-v1
 
-    elasticsearch:
+    elasticsearch-5.5.1-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/elasticsearch:5.5.1
-        # restart: always
-        # 集群设置 Ecluster.name：集群名称 Enode.name：集群节点服务器名称 
-        command: elasticsearch -Ecluster.name=yyj -Enode.name=yyj_node
+        command: elasticsearch -Ecluster.name=dev -Enode.name=dev_node
         volumes:
-            - ~/Docker:/disk_data
-            - ~/Docker/containers/elasticsearch/data:/usr/share/elasticsearch/data
-            - ~/Docker/containers/elasticsearch/plugins/ik:/usr/share/elasticsearch/plugins/ik
-            - ~/Docker/containers/elasticsearch/plugins/ingest-attachment:/usr/share/elasticsearch/plugins/ingest-attachment
-            - ~/Docker/containers/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml            
+            - ~/Docker/container/elasticsearch/5.5.1/v1/data:/usr/share/elasticsearch/data
+            - ~/Docker/container/elasticsearch/5.5.1/v1/plugins/ik:/usr/share/elasticsearch/plugins/ik
+            - ~/Docker/container/elasticsearch/5.5.1/v1/plugins/ingest-attachment:/usr/share/elasticsearch/plugins/ingest-attachment
+            - ~/Docker/container/elasticsearch/5.5.1/v1/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml            
         ports:
             - 9200:9200
             - 9300:9300
         environment:
             ES_JAVA_OPTS: "-Xms1g -Xmx1g"
         privileged: true
-        container_name: elasticsearch
+        container_name: elasticsearch-5.5.1-v1
 
-    kibana:
+    kibana-5.5.1-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/kibana:5.5.1
-        # restart: always
         ports:
             - 5601:5601
         volumes:
-           - ~/Docker/containers/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+           - ~/Docker/container/kibana/5.5.1/v1/config/kibana.yml:/usr/share/kibana/config/kibana.yml
         depends_on:
-            - elasticsearch
+            - elasticsearch-5.5.1-v1
         privileged: true
-        container_name: kibana
+        container_name: kibana-5.5.1-v1
