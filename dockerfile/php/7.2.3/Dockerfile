@@ -10,7 +10,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN pecl install redis \
     && pecl install xdebug \
-    && pecl install channel://pecl.php.net/mcrypt-1.0.1 \
     && pecl install swoole \
     && docker-php-ext-enable redis xdebug
     
