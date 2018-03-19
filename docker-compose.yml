@@ -42,6 +42,14 @@ services:
         privileged: true
         container_name: php-7.1.0-v1
 
+    php-7.2.3-v1:
+        image: registry.cn-shenzhen.aliyuncs.com/624508914/php:7.2.3-fpm
+        volumes:
+            - ~/Docker:/volumes_data
+            - ~/Docker/container/php/7.2.3/v1/conf.d:/usr/local/etc/php/conf.d
+        privileged: true
+        container_name: php-7.2.3-v1
+
     nginx-1.10.2-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/nginx:1.10.2
         ports:
