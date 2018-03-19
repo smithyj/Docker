@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd pcntl
 
 RUN pecl install redis \
-    && pecl install xdebug \
+    && pecl install xdebug-2.5.0 \
     && docker-php-ext-enable redis xdebug
     
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
