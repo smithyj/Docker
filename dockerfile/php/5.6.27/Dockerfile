@@ -4,12 +4,12 @@ RUN apt-get update && apt-get install -y \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libpng-dev \
-    && docker-php-ext-install -j$(nproc) iconv mcrypt bcmath calendar ctype exif gettext pdo_mysql shmop sockets zip mysql mysqli\
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/\
+    && docker-php-ext-install -j$(nproc) iconv mcrypt bcmath calendar ctype exif gettext pdo_mysql shmop sockets zip mysql mysqli \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd pcntl
 
-RUN pecl install redis-3.1.0 \
-    && pecl install xdebug-2.5.0 \
+RUN pecl install redis \
+    && pecl install xdebug \
     && docker-php-ext-enable redis xdebug
     
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
