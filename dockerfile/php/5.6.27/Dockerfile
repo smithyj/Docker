@@ -10,7 +10,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN pecl install redis \
     && pecl install xdebug-2.5.0 \
-    && docker-php-ext-enable redis xdebug
+    && docker-php-ext-enable redis xdebug \
+    && apt install vim -y \
+    && apt install iputils-ping -y
     
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
