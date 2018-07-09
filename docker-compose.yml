@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.6'
 services:
     mysql-5.6.34-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.6.34
@@ -89,3 +89,13 @@ services:
             - elasticsearch-5.5.1-v1
         privileged: true
         container_name: kibana-5.5.1-v1
+
+    rabbitmq-3.7.6-v1:
+        image: docker.io/rabbitmq:3.7.6
+        ports:
+            - 15672:15672
+        volumes:
+            - ~/Docker:/volumes_data
+            - ~/Docker/container/rabbitmq/3.7.6/v1/conf.d/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+        privileged: true
+        container_name: rabbitmq-3.7.6-v1

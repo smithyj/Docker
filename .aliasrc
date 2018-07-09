@@ -1,6 +1,7 @@
 # docker-compose quick command
 docker_compose_file=~/Docker/docker-compose.yml
-alias dc-start='docker-compose -f ${docker_compose_file} stop && docker-compose -f ${docker_compose_file} rm -f && docker-compose -f ${docker_compose_file} up -d'
+alias dc-start='docker-compose -f ${docker_compose_file} up -d'
+alias dc-clear='dc-stop && dc-rm'
 alias dc-restart='docker-compose -f ${docker_compose_file} restart'
 alias dc-stop='docker-compose -f ${docker_compose_file} stop'
 alias dc-rm='docker-compose -f ${docker_compose_file} rm -f'
