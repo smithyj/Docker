@@ -98,4 +98,7 @@ services:
             - ~/Docker:/volumes_data
             - ~/Docker/container/rabbitmq/3.7.6/v1/conf.d/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
         privileged: true
+        environment:
+            RABBITMQ_DEFAULT_USER: yangyj
+            RABBITMQ_DEFAULT_PASS: 123456
         container_name: rabbitmq-3.7.6-v1
