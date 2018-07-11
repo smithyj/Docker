@@ -1,16 +1,15 @@
+	server {
+		listen 80 default_server;
+		server_name  _;
+		return 500;
+	}
+	
 	# dev.api.zentrust.cn
 	server {
 		listen          80;
 		server_name     dev.api.zentrust.cn;
 		root         	/volumes_data/wwwroot/dev.api.zentrust.cn;
 		index           index.php index.html index.htm;
-		etag on;
-
-		# 去除末尾的斜杠,SEO更加友好
-		if (!-d $request_filename)
-		{
-			rewrite ^/(.+)/$ /$1 permanent;
-		}
 
 		location / {
 			if ($request_method = OPTIONS ) {
@@ -47,60 +46,12 @@
         }
 	}
 
-	# dev.yangyj.com
-	server {
-		listen          80 default_server;
-		
-		listen 443 ssl;
-    	ssl_certificate     /volumes_data/ssl/dev.yangyj.com/dev.yangyj.com.crt;
-    	ssl_certificate_key /volumes_data/ssl/dev.yangyj.com/dev.yangyj.com.key;
-
-		server_name     dev.yangyj.com;
-		root         	/volumes_data/wwwroot/dev.yangyj.com/public;
-		index           index.php;
-		etag on;
-
-		client_max_body_size 20m;
-
-		# 去除末尾的斜杠,SEO更加友好
-		if (!-d $request_filename)
-		{
-			rewrite ^/(.+)/$ /$1 permanent;
-		}
-		
-		location / {  
-			try_files $uri $uri /index.php?$query_string;  
-		}
-
-		location ~ [^/]\.php(/|$)
-        {
-			fastcgi_pass        php-7.2.3-v1:9000;
-			fastcgi_index       index.php;
-			fastcgi_param       SCRIPT_FILENAME $document_root$fastcgi_script_name;
-			include             fastcgi_params;
-        }
-	}
-
 	# dev.api.yangyj.com
 	server {
 		listen          80;
-		
-		# listen 443 ssl;
-    	# ssl_certificate     /volumes_data/ssl/dev.yangyj.com/dev.yangyj.com.crt;
-    	# ssl_certificate_key /volumes_data/ssl/dev.yangyj.com/dev.yangyj.com.key;
-
-		server_name     dev.api.yangyj.com;
+		server_name     dev.api.yangyj.com dev.new.api.zentrust.cn;
 		root         	/volumes_data/wwwroot/api.yangyj.com/public;
-		index           index.php;
-		etag on;
-
-		client_max_body_size 50M;
-
-		# 去除末尾的斜杠,SEO更加友好
-		if (!-d $request_filename)
-		{
-			rewrite ^/(.+)/$ /$1 permanent;
-		}
+		index           index.php index.html index.htm;
 		
 		location / {  
 			try_files $uri $uri /index.php?$query_string;  
@@ -115,21 +66,16 @@
         }
 	}
 
-	# dev.new.api.yangyj.com
+	# dev.new.api.zentrust.cn
 	server {
 		listen          80;
-		server_name     dev.new.api.yangyj.com;
+		listen			443 ssl;
+		server_name     dev.new.api.zentrust.cn;
 		root         	/volumes_data/wwwroot/new.api.zentrust.cn/public;
-		index           index.php index.html;
-		etag on;
+		index           index.php index.html index.htm;
 
-		client_max_body_size 50M;
-
-		# 去除末尾的斜杠,SEO更加友好
-		if (!-d $request_filename)
-		{
-			rewrite ^/(.+)/$ /$1 permanent;
-		}
+		ssl_certificate     /volumes_data/ssl/dev.new.api.zentrust.cn/dev.new.api.zentrust.cn.crt;
+    	ssl_certificate_key /volumes_data/ssl/dev.new.api.zentrust.cn/dev.new.api.zentrust.cn.key;
 		
 		location / {  
 			try_files $uri $uri /index.php?$query_string;  
