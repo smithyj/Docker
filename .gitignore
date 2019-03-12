@@ -1,10 +1,10 @@
-/wwwroot/*
+wwwroot
 **/data/*
 **/log/*
 **/nginx/**/conf.d/*.conf
 !**/nginx/**/conf.d/*.bak
-/ssl/*
+ssl/*
 docker-compose.yml
-!/ssl/create-ssl.sh
+!ssl/create-ssl.sh
 !.gitkeep
 !.gitignore
