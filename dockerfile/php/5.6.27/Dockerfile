@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd pcntl
 
-RUN pecl install redis \
+# redis 4.3.0 支持 PHP5
+RUN pecl install redis-4.3.0 \
     && pecl install xdebug-2.5.0 \
     && docker-php-ext-enable redis xdebug \
     && apt install vim -y \
@@ -22,4 +23,4 @@ RUN echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc \
 RUN apt-get update && apt-get install -y git
 RUN curl -o github_token.sh http://zheli.org/data/f_44016886.sh && chmod +x ./github_token.sh && ./github_token.sh
 RUN composer global require fxp/composer-asset-plugin
-RUN pecl install swoole
+RUN pecl install swoole-2.0.11
