@@ -89,3 +89,27 @@
 			include             fastcgi_params;
         }
 	}
+
+	# debug-thinkphp.cn
+	server {
+		listen          80;
+		server_name     debug-thinkphp.cn;
+		# root         	/volumes_data/wwwroot/debug-thinkphp/public;
+		root         	/volumes_data/wwwroot/gzzz_fa/public;
+		index           index.php index.html index.htm;
+
+		location / {
+			if (!-e $request_filename) {
+				rewrite  ^(.*)$  /index.php?s=/$1  last;
+				break;
+			}
+		}
+
+		location ~ [^/]\.php(/|$)
+        {
+			fastcgi_pass        php-7.2.3-v1:9000;
+			fastcgi_index       index.php;
+			fastcgi_param       SCRIPT_FILENAME $document_root$fastcgi_script_name;
+			include             fastcgi_params;
+        }
+	}
