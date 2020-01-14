@@ -5,9 +5,9 @@ services:
         ports:
             - 3306:3306
         volumes:
-            - ~/Docker:/volumes_data
-            - ~/Docker/container/mysql/5.6.34/v1/conf.d:/etc/mysql/conf.d
-            - ~/Docker/container/mysql/5.6.34/v1/data:/var/lib/mysql
+            - ~/Docker:/volumes_data:cached
+            - ~/Docker/container/mysql/5.6.34/v1/conf.d:/etc/mysql/conf.d:cached
+            - ~/Docker/container/mysql/5.6.34/v1/data:/var/lib/mysql:cached
         privileged: true
         environment:
             MYSQL_ROOT_PASSWORD: 123456
@@ -18,9 +18,9 @@ services:
         ports:
             - 3307:3306
         volumes:
-            - ~/Docker:/volumes_data
-            - ~/Docker/container/mysql/5.7.20/v1/conf.d:/etc/mysql/conf.d
-            - ~/Docker/container/mysql/5.7.20/v1/data:/var/lib/mysql
+            - ~/Docker:/volumes_data:cached
+            - ~/Docker/container/mysql/5.7.20/v1/conf.d:/etc/mysql/conf.d:cached
+            - ~/Docker/container/mysql/5.7.20/v1/data:/var/lib/mysql:cached
         privileged: true
         environment:
             MYSQL_ROOT_PASSWORD: 123456
@@ -29,16 +29,16 @@ services:
     php-5.6.27-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:5.6.27
         volumes:
-            - ~/Docker:/volumes_data
-            - ~/Docker/container/php/5.6.27/v1/conf.d:/usr/local/etc/php/conf.d
+            - ~/Docker:/volumes_data:cached
+            - ~/Docker/container/php/5.6.27/v1/conf.d:/usr/local/etc/php/conf.d:cached
         privileged: true
         container_name: php-5.6.27-v1
 
     php-7.2.3-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/php:7.2.3
         volumes:
-            - ~/Docker:/volumes_data
-            - ~/Docker/container/php/7.2.3/v1/conf.d:/usr/local/etc/php/conf.d
+            - ~/Docker:/volumes_data:cached
+            - ~/Docker/container/php/7.2.3/v1/conf.d:/usr/local/etc/php/conf.d:cached
         privileged: true
         container_name: php-7.2.3-v1
 
@@ -51,15 +51,15 @@ services:
             - php-5.6.27-v1
             - php-7.2.3-v1
         volumes:
-            - ~/Docker:/volumes_data
-            - ~/Docker/container/nginx/1.10.2/v1/conf.d:/etc/nginx/conf.d
+            - ~/Docker:/volumes_data:cached
+            - ~/Docker/container/nginx/1.10.2/v1/conf.d:/etc/nginx/conf.d:cached
         privileged: true
         container_name: nginx-1.10.2-v1
     
     redis-4.0.0-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/redis:4.0.0
         volumes:
-            - ~/Docker/container/redis/4.0.0/v1/data:/data
+            - ~/Docker/container/redis/4.0.0/v1/data:/data:cached
         privileged: true
         container_name: redis-4.0.0-v1
 
@@ -67,10 +67,10 @@ services:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/elasticsearch:5.5.1
         command: elasticsearch -Ecluster.name=dev -Enode.name=dev_node
         volumes:
-            - ~/Docker/container/elasticsearch/5.5.1/v1/data:/usr/share/elasticsearch/data
-            - ~/Docker/container/elasticsearch/5.5.1/v1/plugins/ik:/usr/share/elasticsearch/plugins/ik
-            - ~/Docker/container/elasticsearch/5.5.1/v1/plugins/ingest-attachment:/usr/share/elasticsearch/plugins/ingest-attachment
-            - ~/Docker/container/elasticsearch/5.5.1/v1/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml            
+            - ~/Docker/container/elasticsearch/5.5.1/v1/data:/usr/share/elasticsearch/data:cached
+            - ~/Docker/container/elasticsearch/5.5.1/v1/plugins/ik:/usr/share/elasticsearch/plugins/ik:cached
+            - ~/Docker/container/elasticsearch/5.5.1/v1/plugins/ingest-attachment:/usr/share/elasticsearch/plugins/ingest-attachment:cached
+            - ~/Docker/container/elasticsearch/5.5.1/v1/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:cached
         ports:
             - 9200:9200
             - 9300:9300
@@ -84,7 +84,7 @@ services:
         ports:
             - 5601:5601
         volumes:
-           - ~/Docker/container/kibana/5.5.1/v1/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+           - ~/Docker/container/kibana/5.5.1/v1/config/kibana.yml:/usr/share/kibana/config/kibana.yml:cached
         depends_on:
             - elasticsearch-5.5.1-v1
         privileged: true
@@ -96,7 +96,7 @@ services:
             - 15672:15672
         volumes:
             - ~/Docker:/volumes_data
-            - ~/Docker/container/rabbitmq/3.7.6/v1/conf.d/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+            - ~/Docker/container/rabbitmq/3.7.6/v1/conf.d/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:cached
         privileged: true
         environment:
             RABBITMQ_DEFAULT_USER: yangyj
