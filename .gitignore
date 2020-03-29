@@ -2,7 +2,7 @@ wwwroot
 **/data/*
 **/log/*
 **/nginx/**/conf.d/*.conf
-!**/nginx/**/conf.d/*.bak
+!**/*.bak
 ssl/*
 docker-compose.yml
 !ssl/create-ssl.sh
