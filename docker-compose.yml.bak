@@ -102,3 +102,27 @@ services:
             RABBITMQ_DEFAULT_USER: yangyj
             RABBITMQ_DEFAULT_PASS: 123456
         container_name: rabbitmq-3.7.6-v1
+
+    redis:
+        image: redis:6.0.9
+        ports:
+            - 6379:6379
+        volumes:
+            - ~/Docker/container/redis/6.0.9/v1/data:/data:cached
+        container_name: redis
+
+    mysql:
+        image: mysql:8.0.22
+        ports:
+            - 3306:3306
+        volumes:
+            - ~/Docker:/volumes_data:cached
+            - ~/Docker/container/mysql/8.0.22/v1/conf.d/:/etc/mysql/conf.d:cached
+            - ~/Docker/container/mysql/8.0.22/v1/data:/var/lib/mysql:cached
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+        command:
+            --default-authentication-plugin=mysql_native_password
+            --character-set-server=utf8mb4
+            --collation-server=utf8mb4_general_ci
+        container_name: mysql
