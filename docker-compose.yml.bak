@@ -1,4 +1,5 @@
 version: '3.6'
+
 services:
     mysql-5.6.34-v1:
         image: registry.cn-shenzhen.aliyuncs.com/624508914/mysql:5.6.34
@@ -103,14 +104,28 @@ services:
             RABBITMQ_DEFAULT_PASS: 123456
         container_name: rabbitmq-3.7.6-v1
 
+    etcd:
+        image: bitnami/etcd:latest
+        ports:
+            - 2379:2379
+            - 2380:2380
+        environment:
+            - ALLOW_NONE_AUTHENTICATION=yes
+            - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+        networks:
+            - dev_net
+        container_name: etcd
+
     redis:
         image: redis:6.0.9
         ports:
             - 6379:6379
         volumes:
             - ~/Docker/container/redis/6.0.9/v1/data:/data:cached
+        networks:
+            - dev_net
         container_name: redis
-
+        
     mysql:
         image: mysql:8.0.22
         ports:
@@ -120,9 +135,18 @@ services:
             - ~/Docker/container/mysql/8.0.22/v1/conf.d/:/etc/mysql/conf.d:cached
             - ~/Docker/container/mysql/8.0.22/v1/data:/var/lib/mysql:cached
         environment:
-            MYSQL_ROOT_PASSWORD: 123456
+            - MYSQL_ROOT_PASSWORD=123456
         command:
             --default-authentication-plugin=mysql_native_password
             --character-set-server=utf8mb4
             --collation-server=utf8mb4_general_ci
+        networks:
+            - dev_net
         container_name: mysql
+
+networks:
+    dev_net:
+        ipam:
+            driver: default
+            config:
+                - subnet: "172.16.110.0/24"
