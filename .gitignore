@@ -1,9 +1,9 @@
 wwwroot
-**/data/*
-**/log/*
+**/data
+**/log
 **/nginx/**/conf.d/*.conf
 !**/*.bak
-ssl/*
+**/ssl
 docker-compose.yml
 !ssl/create-ssl.sh
 !.gitkeep
